@@ -10,11 +10,11 @@ topmenu:
 - title: Contact
   url: "contact/"
 
-- title: Get this theme  
+- title: Buy me a coffee <i class="fa fa-coffee"></i>
   url: https://bootstrapstarter.com/template-affiliates-bootstrap-jekyll/
   class: "ml-2 btn btn-dark text-white px-3"
   external: true
-
+  
 # Footer Menu
 footermenu:
 
