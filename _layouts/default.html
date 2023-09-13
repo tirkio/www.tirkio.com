@@ -68,13 +68,9 @@ gtag('config', '{{site.ganalytics}}');
     <div class="container">
     <div class="row align-items-center justify-content-between">
         <div>
-            <ul class="p-0 mb-1 small">
             {% for item in site.data.menus.footermenu %}
-            <li>
-              <a href="{% unless item.external %}{{site.baseurl}}/{% endunless %}{{item.url}}" alt="{{item.title}}">{{item.title}}</a>
-            </li>
+            <span class="navbar-brand mr-2 mb-0"><a href="{% unless item.external %}{{site.baseurl}}/{% endunless %}{{item.url}}" alt="{{item.title}}">{{item.title}}</a></span>
             {% endfor %}
-            </ul>
         </div>
         <div>
             <span>Copyright © <script>document.write(new Date().getFullYear())</script>.</span>
