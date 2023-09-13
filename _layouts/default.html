@@ -31,21 +31,13 @@ gtag('config', '{{site.ganalytics}}');
 {% capture layout %}{% if page.layout %}layout-{{ page.layout }}{% endif %}{% endcapture %}
 <body class="{{ layout }}">
 
-    
-<!-- Menu Navigation
-================================================== -->
 <div class="navigation-wrap start-header start-style">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
 
           <a class="navbar-brand text-dark font-weight-bold big d-flex align-items-center" href="{{site.baseurl}}/">
-          {% if site.logo %}
-          <img class="mr-2" src="{{site.baseurl}}/{{site.logo}}" alt="logo"> 
-          {% else %}
-          <span class="d-none d-md-inline-block">{{ site.title }}</span>
-          {% endif %}
+              <span class="d-none d-md-inline-block">{{ site.title }}</span>
           </a>
-          
     
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
@@ -67,33 +59,30 @@ gtag('config', '{{site.ganalytics}}');
       </nav>
     </div>  
 
-    
-<!-- Container
-================================================== -->    
 <main class="container">   
       {{ content }}  
 </main>
 
-<!-- Footer
-================================================== -->    
-<footer class="footer pt-5 pb-5 text-center">  
 
-
-
-  <ul class="p-0 mb-1 small">
-    {% for item in site.data.menus.footermenu %}
-    <li>
-      <a href="{% unless item.external %}{{site.baseurl}}/{% endunless %}{{item.url}}" alt="{{item.title}}">{{item.title}}</a>
-    </li>
-    {% endfor %}
-    </ul>
-    <div class="copyright small">
-       Copyright © {{site.title}}. All rights reserved.
+<footer class="bg-white border-top p-3 text-muted small">
+    <div class="container">
+    <div class="row align-items-center justify-content-between">
+        <div>
+            <ul class="p-0 mb-1 small">
+            {% for item in site.data.menus.footermenu %}
+            <li>
+              <a href="{% unless item.external %}{{site.baseurl}}/{% endunless %}{{item.url}}" alt="{{item.title}}">{{item.title}}</a>
+            </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <span>Copyright © <script>document.write(new Date().getFullYear())</script>.</span>
+        </div>
     </div>
-</footer>
+    </div>
+</footer>  
 
-<!-- JavaScript
-================================================== -->    
 <script src="{{ site.baseurl }}/assets/js/jquery.min.js"></script>   
 <script src="{{ site.baseurl }}/assets/js/bootstrap.min.js"></script>   
 <script src="{{ site.baseurl }}/assets/js/theme.js"></script>    
