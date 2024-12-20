@@ -40,11 +40,11 @@ gtag('config', '{{site.ganalytics}}');
               <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
             </svg>
           </button>
-           
+
             <div class="collapse navbar-collapse" id="navbarResponsive">
               <ul class="navbar-nav ml-auto font-weight-bold d-flex align-items-center">
-                {% assign unique_categories = site.posts | map: 'categories' | join: ',' | split: ',' | uniq | sort %}
-                {% for category in unique_categories %}
+                {% assign first_level_categories = site.posts | map: 'categories' | map: 'first' | uniq | sort %}
+                {% for category in first_level_categories %}
                   <li class="nav-item">
                     <a class="nav-link px-3" href="{{ site.baseurl }}/categories/{{ category | slugify }}" alt="{{ category }}">
                       {{ category }}
