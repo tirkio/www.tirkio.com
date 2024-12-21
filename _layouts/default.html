@@ -1,18 +1,51 @@
 <!DOCTYPE html>
-<html lang="de">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light dark">
-    {% seo %}
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-    />
-  </head>
-  <body>
-    {% include header.html %}
-    <main class="container">{{ content }}</main>
-    {% include footer.html %}
-  </body>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2a3140">
+  <meta name="color-scheme" content="light dark">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <meta property="og:image" content="{{ site.url }}/assets/opengraph.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+  <title>{{ page.title }} | {{ site.title }}</title>
+</head>
+<body style="min-height: 960px;">
+
+  <!-- Skip to Content -->
+  <a href="#content" class="skip-to-content contrast" role="button">Skip to content</a>
+
+  <!-- Header -->
+  {% include header.html %}
+
+  <!-- Main Content -->
+  <main class="container has-table-of-contents">
+    <nav aria-label="breadcrumb">
+      <ul>
+        <li><a href="/" class="secondary">Home</a></li>
+        <li>{{ page.title }}</li>
+      </ul>
+    </nav>
+
+    <aside id="table-of-contents">
+      <details open>
+        <summary>Table of Contents</summary>
+        <ul>
+          {% for header in page.content | split: "<h2>" %}
+          {% if forloop.index > 1 %}
+          <li><a href="#{{ header | strip_html | slugify }}">{{ header | strip_html }}</a></li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </details>
+    </aside>
+
+    <div id="content">
+      {{ content }}
+    </div>
+  </main>
+
+  <!-- Footer -->
+  {% include footer.html %}
+</body>
 </html>

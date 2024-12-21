@@ -1,12 +1,17 @@
 <footer class="container">
-  <nav>
-    <ul>
-      {% for page in site.pages %}
+    <nav class="links">
+      <ul>
+        <li><strong>Pages</strong></li>
+        {% for page in site.pages %}
         <li><a href="{{ page.url }}">{{ page.title }}</a></li>
-      {% endfor %}
-    </ul>
-  </nav>
-  <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}</p>
+        {% endfor %}
+      </ul>
+      <ul>
+        <li><strong>Categories</strong></li>
+        {% for category in site.categories %}
+        <li><a href="/categories/{{ category[0] }}">{{ category[0] }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+    <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
 </footer>
-
-
