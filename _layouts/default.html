@@ -34,10 +34,12 @@
           <!-- Navigation Menu -->
           <div class="collapse navbar-collapse justify-content-end" id="navbarResponsive">
             <ul class="navbar-nav ml-auto font-weight-bold">
-              {% for item in site.data.menus.topmenu %}
-              <li class="nav-item">
-                <a class="nav-link px-3 {% if item.class %}{{item.class}}{% endif %}" href="{% unless item.external %}{{site.baseurl}}/{% endunless %}{{item.url}}" alt="{{item.title}}">{{item.title}}</a>
-              </li>
+              {% for category in site.categories %}
+                <li class="nav-item">
+                  <a class="nav-link px-3" href="{{ site.baseurl }}/categories#{{ category[0] | slugify }}" alt="Category: {{ category[0] }}">
+                    {{ category[0] | capitalize }}
+                  </a>
+                </li>
               {% endfor %}
             </ul>
           </div>
