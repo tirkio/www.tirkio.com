@@ -1,70 +1,154 @@
 #!/bin/bash
 
-# Base directory for the Jekyll site
-BASE_DIR="$(pwd)"
+# Set the site name and repository
+SITE_NAME="TiRKiO"
+REPO_URL="https://github.com/tirkio/tirkio.github.io"
 
-# Function to fix the navigation bar to include categories from posts
-fix_navbar() {
-  cat <<EOL > "$BASE_DIR/_includes/navbar.html"
-<div class="navigation-wrap start-header start-style">
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
+# Set the theme name
+THEME_NAME="./"
 
-          <a class="navbar-brand text-dark font-weight-bold big d-flex align-items-center" href="{{site.baseurl}}/">
-              <span class="d-none d-md-inline-block">{{ site.title }}</span>
-          </a>
-    
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-              <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-            </svg>
-          </button>
+# Create the theme folder structure
+echo "Creating Jekyll theme: $THEME_NAME"
+mkdir -p $THEME_NAME/{_layouts,_includes,_sass,assets/css,assets/js}
 
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto font-weight-bold d-flex align-items-center">
-              {% assign categories = site.categories | sort %}
-              {% for category in categories %}
-                <li class="nav-item">
-                  <a class="nav-link px-3" href="{{ site.baseurl }}/categories/{{ category[0] | slugify }}">
-                    {{ category[0] }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
+cd $THEME_NAME || exit
 
-        </div>
-      </nav>
+# Create the required files
+echo "Creating theme files..."
+
+# Default Layout
+cat <<EOL > _layouts/default.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2a3140" />
+  <meta name="description" content="{{ site.description }}" />
+  <title>{{ page.title | default: site.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+  <link rel="icon" href="{{ '/favicon.png' | relative_url }}" />
+</head>
+<body>
+  <a href="#content" class="skip-to-content">Skip to content</a>
+  {% include header.html %}
+  <main id="content" class="container">
+    {{ content }}
+  </main>
+  {% include footer.html %}
+</body>
+</html>
+EOL
+
+# Post Layout
+cat <<EOL > _layouts/post.html
+{% include side-menu.html %}
+<div class="content">
+  <article>
+    <h1>{{ page.title }}</h1>
+    {{ content }}
+  </article>
 </div>
 EOL
-}
 
-# Function to fix the footer to include pages as footer navigation
-fix_footer() {
-  cat <<EOL > "$BASE_DIR/_includes/footer.html"
-<footer class="bg-white border-top p-3 text-muted small">
-    <div class="container">
-        <div class="row align-items-center justify-content-between">
-            <div>
-                {% assign all_pages = site.pages | sort: 'title' %}
-                {% for page in all_pages %}
-                  {% if page.title %}
-                    <span><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></span>
-                    {% if forloop.last == false %}&middot;{% endif %}
-                  {% endif %}
-                {% endfor %}
-            </div>
-            <div>
-                <span>Copyright © <script>document.write(new Date().getFullYear())</script></span>
-            </div>
-        </div>
-    </div>
+# Header Include
+cat <<EOL > _includes/header.html
+<header>
+  <div class="container">
+    <a href="{{ site.baseurl }}/" class="logo" aria-label="{{ site.title }} homepage">
+      {{ site.title }}
+    </a>
+    <nav>
+      <ul>
+        {% for category in site.categories %}
+        <li><a href="{{ category[0] | relative_url }}">{{ category[0] }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+    <ul class="icons">
+      <li>
+        <a href="https://github.com/tirkio" target="_blank" aria-label="GitHub">
+          GitHub
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+EOL
+
+# Footer Include
+cat <<EOL > _includes/footer.html
+<footer>
+  <div class="container">
+    <section>
+      <nav class="links">
+        <ul>
+          {% for page in site.pages %}
+          {% unless page.title == nil %}
+          <li><a href="{{ page.url | relative_url }}">{{ page.title }}</a></li>
+          {% endunless %}
+          {% endfor %}
+        </ul>
+      </nav>
+      <p>Built with <a href="https://picocss.com" target="_blank">PicoCSS</a> and Jekyll.</p>
+    </section>
+  </div>
 </footer>
 EOL
+
+# Side Menu Include
+cat <<EOL > _includes/side-menu.html
+<aside>
+  <ul>
+    {% for heading in page.content | markdownify | split: '<h' %}
+    {% if heading contains '>' %}
+      <li><a href="#{{ heading | split: '>' | first | remove: '/' }}">{{ heading | split: '>' | last | remove: '</h' }}</a></li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</aside>
+EOL
+
+# SCSS: Style
+cat <<EOL > _sass/style.scss
+@import "https://unpkg.com/@picocss/pico@latest/css/pico.min.css";
+
+/* Additional styles */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  z-index: 1000;
 }
+.skip-to-content:focus {
+  top: 0;
+}
+EOL
 
-# Run all fixes
-fix_navbar
-fix_footer
+# CSS Entry Point
+cat <<EOL > assets/css/style.css
+---
+---
+@import "../_sass/style.scss";
+EOL
 
-echo "Navigation and footer have been updated successfully."
+# Config File
+cat <<EOL > _config.yml
+title: "TiRKiO"
+description: "A minimal Jekyll theme styled with PicoCSS."
+baseurl: "" # Leave empty for GitHub Pages root
+url: "https://www.tirkio.com"
+theme: jekyll-theme-picocss
+github_username: "tirkio"
+EOL
+
+
+# Finalizing
+echo "Jekyll theme '$THEME_NAME' created successfully."
+echo "You can now upload this theme to GitHub Pages:"
+echo "1. Create a new GitHub repository."
+echo "2. Push the contents of '$THEME_NAME' folder to the repository."
+echo "3. Enable GitHub Pages in the repository settings."

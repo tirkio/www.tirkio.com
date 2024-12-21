@@ -1,18 +1,16 @@
-<footer class="bg-white border-top p-3 text-muted small">
-    <div class="container">
-        <div class="row align-items-center justify-content-between">
-            <div>
-                {% assign all_pages = site.pages | sort: 'title' %}
-                {% for page in all_pages %}
-                  {% if page.title %}
-                    <span><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></span>
-                    {% if forloop.last == false %}&middot;{% endif %}
-                  {% endif %}
-                {% endfor %}
-            </div>
-            <div>
-                <span>Copyright © <script>document.write(new Date().getFullYear())</script></span>
-            </div>
-        </div>
-    </div>
+<footer>
+  <div class="container">
+    <section>
+      <nav class="links">
+        <ul>
+          {% for page in site.pages %}
+          {% unless page.title == nil %}
+          <li><a href="{{ page.url | relative_url }}">{{ page.title }}</a></li>
+          {% endunless %}
+          {% endfor %}
+        </ul>
+      </nav>
+      <p>Built with <a href="https://picocss.com" target="_blank">PicoCSS</a> and Jekyll.</p>
+    </section>
+  </div>
 </footer>
