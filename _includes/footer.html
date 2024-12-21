@@ -4,8 +4,10 @@
             <div>
                 {% assign all_pages = site.pages | sort: 'title' %}
                 {% for page in all_pages %}
-                  <span><a href="{{ site.baseurl }}{{ page.url }}" alt="{{ page.title }}">{{ page.title }}</a></span>
-                  {% if forloop.last == false %}&middot;{% endif %}
+                  {% if page.title %}
+                    <span><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></span>
+                    {% if forloop.last == false %}&middot;{% endif %}
+                  {% endif %}
                 {% endfor %}
             </div>
             <div>

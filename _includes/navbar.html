@@ -14,11 +14,11 @@
 
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto font-weight-bold d-flex align-items-center">
-              {% assign first_level_categories = site.posts | map: 'categories' | map: 'first' | uniq | sort %}
-              {% for category in first_level_categories %}
+              {% assign categories = site.categories | sort %}
+              {% for category in categories %}
                 <li class="nav-item">
-                  <a class="nav-link px-3" href="{{ site.baseurl }}/categories/{{ category | slugify }}" alt="{{ category }}">
-                    {{ category }}
+                  <a class="nav-link px-3" href="{{ site.baseurl }}/categories/{{ category[0] | slugify }}">
+                    {{ category[0] }}
                   </a>
                 </li>
               {% endfor %}
