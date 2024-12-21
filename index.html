@@ -27,7 +27,7 @@ background: '/img/bg-index.jpg'
   {% for post in site.posts %}
       {% if post.featured == true %}
           <div class="col-md-4 mb-5">
-          postbox
+          {% include postbox.html %}
           </div>
       {% endif %}
   {% endfor %}
@@ -42,7 +42,7 @@ background: '/img/bg-index.jpg'
       {% for post in paginator.posts %}
       {% unless post.featured == true %}
       <div class="col-md-6 mb-5">
-        postbox
+        {% include postbox.html %}
       </div>
       {% endunless %}
       {% endfor %}
