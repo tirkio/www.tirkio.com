@@ -9,27 +9,26 @@ backup_file() {
   fi
 }
 
-# Remove custom includes
-if [ -d "_includes" ]; then
-  echo "Restoring custom includes..."
-  mkdir -p _includes
-  cat <<EOL > _includes/disqus.html
-<section class="disqus">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        var disqus_shortname = '{{site.disqus}}'; 
-        var disqus_developer = 0;
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</section>
+# Restore missing sidebar.html include
+includes_dir="_includes"
+if [ ! -d "$includes_dir" ]; then
+  mkdir -p "$includes_dir"
+  echo "Created _includes directory."
+fi
+
+sidebar_file="$includes_dir/sidebar.html"
+if [ ! -f "$sidebar_file" ]; then
+  cat <<EOL > "$sidebar_file"
+<div class="sidebar sticky-top">
+    <div class="sidebar-section">
+        <h5><span>Your Ad Here</span></h5>
+        <img src="{{ site.baseurl }}/assets/images/ad.png" alt="Advertisement">
+    </div>
+</div>
 EOL
-  echo "Disqus include restored in _includes/disqus.html."
+  echo "Restored missing $sidebar_file."
+else
+  echo "$sidebar_file already exists. No changes made."
 fi
 
 # Restore navigation in `_layouts/default.html`
@@ -91,4 +90,4 @@ for layout in about contact categories privacy-policy; do
 
 done
 
-echo "Customizations removed and Disqus re-included. Run 'jekyll serve' to test your site."
+echo "Customizations removed, sidebar restored, and Disqus re-included. Run 'jekyll serve' to test your site."
