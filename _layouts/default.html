@@ -1,46 +1,14 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/quartz/bootstrap.min.css">
-  <title>{{ page.title }} | {{ site.title }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/quartz/bootstrap.min.css">
 </head>
 <body>
-
-  <!-- Header -->
-  {% include header.html %}
-
-  <!-- Main Content -->
-  <main class="container has-table-of-contents">
-    <nav aria-label="breadcrumb">
-      <ul>
-        <li><a href="/" class="secondary">Home</a></li>
-        <li>{{ page.title }}</li>
-      </ul>
-    </nav>
-
-    <aside id="table-of-contents">
-      <details open>
-        <summary>Table of Contents</summary>
-        <ul>
-          {% for header in page.content | split: "<h2>" %}
-          {% if forloop.index > 1 %}
-          <li><a href="#{{ header | strip_html | slugify }}">{{ header | strip_html }}</a></li>
-          {% endif %}
-          {% endfor %}
-        </ul>
-      </details>
-    </aside>
-
-    <div id="content">
-      {{ content }}
-    </div>
-  </main>
-
-  <!-- Footer -->
-  {% include footer.html %}
-  
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js"></script>
+    {% include header.html %}
+    {{ content }}
+    {% include footer.html %}
 </body>
 </html>

@@ -1,6 +1,7 @@
 ---
-layout: page
+layout: default
 title: About
+permalink: /about/
 ---
-
-This is the About page.
+# About
+This is the about page for my simple Jekyll theme.
