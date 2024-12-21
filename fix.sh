@@ -5,7 +5,7 @@ SITE_NAME="TiRKiO"
 REPO_URL="https://github.com/tirkio/tirkio.github.io"
 
 # Set the theme name
-THEME_NAME="./"
+THEME_NAME="jekyll-picocss-theme"
 
 # Create the theme folder structure
 echo "Creating Jekyll theme: $THEME_NAME"
@@ -26,6 +26,7 @@ cat <<EOL > _layouts/default.html
   <meta name="theme-color" content="#2a3140" />
   <meta name="description" content="{{ site.description }}" />
   <title>{{ page.title | default: site.title }}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
   <link rel="icon" href="{{ '/favicon.png' | relative_url }}" />
 </head>
@@ -46,7 +47,7 @@ cat <<EOL > _layouts/post.html
 <div class="content">
   <article>
     <h1>{{ page.title }}</h1>
-    {{ content }}
+    {{ content }}</h1>
   </article>
 </div>
 EOL
@@ -111,8 +112,6 @@ EOL
 
 # SCSS: Style
 cat <<EOL > _sass/style.scss
-@import "https://unpkg.com/@picocss/pico@latest/css/pico.min.css";
-
 /* Additional styles */
 .skip-to-content {
   position: absolute;
@@ -141,14 +140,5 @@ title: "TiRKiO"
 description: "A minimal Jekyll theme styled with PicoCSS."
 baseurl: "" # Leave empty for GitHub Pages root
 url: "https://www.tirkio.com"
-theme: jekyll-theme-picocss
-github_username: "tirkio"
 EOL
 
-
-# Finalizing
-echo "Jekyll theme '$THEME_NAME' created successfully."
-echo "You can now upload this theme to GitHub Pages:"
-echo "1. Create a new GitHub repository."
-echo "2. Push the contents of '$THEME_NAME' folder to the repository."
-echo "3. Enable GitHub Pages in the repository settings."

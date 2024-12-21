@@ -1,0 +1,9 @@
+<aside>
+  <ul>
+    {% for heading in page.content | markdownify | split: '<h' %}
+    {% if heading contains '>' %}
+      <li><a href="#{{ heading | split: '>' | first | remove: '/' }}">{{ heading | split: '>' | last | remove: '</h' }}</a></li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</aside>
