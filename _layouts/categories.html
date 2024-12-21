@@ -4,15 +4,19 @@ layout: default
 permalink: "/categories.html"
 ---
 {% for category in site.categories %}
-<h4 class="mt-5 mb-4 pb-2 border-bottom" id="{{ category[0] | slugify }}">
-  <span class="text-capitalize small font-weight-bold">{{ category[0] }}</span>
-</h4>
+<h4 class="mt-5 mb-4 pb-2 border-bottom" id="{{ category[0] | replace: " ","-" }}"><span class="text-capitalize small font-weight-bold">In "{{ category[0] }}"</span></h4>
 <div class="row">
-  {% assign posts_in_category = category[1] %}
-  {% for post in posts_in_category %}
-    <div class="col-md-4 mb-5">
-      <a href="{{ post.url | absolute_url }}">{{ post.title }}</a>
-    </div>
-  {% endfor %}
+{% assign pages_list = category[1] %}
+{% for post in pages_list %}
+{% if post.title != null %}
+{% if group == null or group == post.group %}
+<div class="col-md-4 mb-5">
+{% include postbox.html %}
+</div>
+{% endif %}
+{% endif %}
+{% endfor %}
+{% assign pages_list = nil %}
+{% assign group = nil %}
 </div>
 {% endfor %}
