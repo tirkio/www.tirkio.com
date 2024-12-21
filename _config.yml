@@ -1,7 +1,25 @@
-title: "TiRKiO"
-description: "A minimal Jekyll theme styled with PicoCSS."
-baseurl: "" # Leave empty for GitHub Pages root
-url: "https://www.tirkio.com"
-markdown: kramdown
-kramdown:
-  input: GFM
+title: TiRKiO
+description: Your description here
+url: "https://yourdomain.com"
+baseurl: ""
+paginate: 5
+
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-archives
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+collections:
+  pages:
+    output: true
+
+paginate_path: "/page:num/"

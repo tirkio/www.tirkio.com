@@ -1,0 +1,10 @@
+<nav>
+  <h3>Table of Contents</h3>
+  <ul>
+    {% for header in page.content | split: "<h2>" %}
+      {% if forloop.index > 1 %}
+        <li><a href="#{{ header | slugify }}">{{ header | strip_html }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</nav>

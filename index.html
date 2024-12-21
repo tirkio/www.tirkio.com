@@ -1,0 +1,11 @@
+---
+layout: default
+---
+
+<h1>Welcome to TiRKiO</h1>
+<p>Latest Posts:</p>
+<ul>
+  {% for post in paginator.posts %}
+    <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% endfor %}
+</ul>
