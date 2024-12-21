@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ page.title | default: site.title }}</title>
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
-</head>
-<body>
-  <a href="#content" class="skip-to-content">Skip to content</a>
-  {% include header.html %}
-  <main id="content" class="container">
-    {{ content }}
-  </main>
-  {% include footer.html %}
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ page.title | default: site.title }}</title>
+    <link
+      rel="stylesheet"
+      href="{{ '/assets/css/style.css' | relative_url }}"
+    />
+  </head>
+  <body>
+      <a href="#content" class="skip-to-content">Skip to content</a>
+      {% include header.html %}
+      <main id="content" class="grid">{{ content }}</main>
+      {% include footer.html %}
+  </body>
 </html>
