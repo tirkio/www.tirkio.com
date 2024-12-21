@@ -4,10 +4,11 @@ timezone: UTC
 baseurl: ""
 permalink: "/:title/"
 
+disqus: "your-disqus-shortname"
+
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
 
-disqus: "" # Removed
 paginate: 10
