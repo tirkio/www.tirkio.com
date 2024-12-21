@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  {% seo %}
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-  {% include header.html %}
-  <main class="container">
-    {{ content }}
-  </main>
-  {% include footer.html %}
-</body>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    {% seo %}
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+  </head>
+  <body>
+    {% include header.html %}
+    <main class="container">{{ content }}</main>
+    {% include footer.html %}
+  </body>
 </html>
